@@ -1,8 +1,8 @@
 inputs = [
-    '6',
-    '3 14 159 2 6 53',
-    '58 9 79 323 84 6',
-    '2643 383 2 79 50 288'
+    '3',
+    '1 1 1',
+    '2 2 2',
+    '3 3 3'
 ]
 
 
@@ -28,27 +28,52 @@ def binary_search_min_over_num(num, arr):
             left = mid
         else:
             right = mid
-        print(left, right)
+    target = None
     if arr[left] > num:
-        while left != 0 and arr[left] == arr[left - 1]:
-            left = left - 1
-        return left
+        target = left
     elif arr[right] <= num:
         return -1
     else:
-        return right
+        target = right
+    while target != 0 and arr[target] == arr[target - 1]:
+        target = target - 1
+    return target
+
+def binary_search_min_over_reverse_num(num, arr):
+    left = 0
+    right = len(arr) - 1
+    while right - left > 1:
+        mid = int((left + right) / 2)
+        if num <= arr[mid]:
+            right = mid
+        else:
+            left = mid
+    target = None
+    if arr[right] < num:
+        target = right
+    elif arr[left] >= num:
+        return -1
+    else:
+        target = left
+    while target != N - 1 and arr[target] == arr[target + 1]:
+        target = target + 1
+    return target
+
+
 
 result = 0
-for i in range(N):
-    target_j = binary_search_min_over_num(a_s[i], b_s)
-    if target_j == -1:
-        break
-    for j in range(target_j, N):
-        target_k = binary_search_min_over_num(b_s[j], c_s)
-        if target_k == -1:
-            break
-        for k in range(target_k, N):
-            result += 1
+for b_i in range(N):
+    b = b_s[b_i]
+    a_i = binary_search_min_over_reverse_num(b, a_s)
+    if a_i == -1:
+        continue
+    c_i = binary_search_min_over_num(b, c_s)
+    if c_i == -1:
+        continue
+    result += (a_i + 1) * (N - c_i)
+
 print(result)
 
-
+# a = [0,0,0,0,1,1,1,1,2,2,2,2]
+# print(binary_search_min_over_num(1,a))
+# print(binary_search_min_over_reverse_num(1, a))
