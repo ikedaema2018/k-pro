@@ -1,6 +1,3 @@
-from itertools import combinations
-
-
 inputs = [
     '4',
     '4 1 3 3'
@@ -14,16 +11,13 @@ def input():
 N = int(input())
 conditions = list(map(int, input().split()))
 
-r = [{'idx': 0, 'val': 0}]
+r = [0]
 for i in range(len(conditions)):
-    r.append({'idx': i + 1, 'val': r[i]['val'] + conditions[i]})
-
-
+    r.append(conditions[i] + r[i])
 
 for i in range(1, N + 1):
     result = -1
-    for con in combinations(r[1:], i):
-        if con[-1]['idx'] - con[0]['idx'] + 1 != i:
-            continue
-        result = max(con[-1]['val'] - r[con[0]['idx'] - 1]['val'], result)
+    for j in range(1, len(r) - i + 1):
+        k = j + i - 1
+        result = max(r[k] - r[j - 1], result)
     print(result)
