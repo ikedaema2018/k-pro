@@ -1,4 +1,5 @@
 # https://atcoder.jp/contests/joi2010ho/tasks/joi2010ho_a
+import itertools
 inputs = [
     '7 5',
     '2',
@@ -20,9 +21,7 @@ def input():
 
 
 n, m = list(map(int, input().split()))
-towns = [0]
-for i in range(n - 1):
-    towns.append(towns[i] + int(input()))
+towns = tuple(itertools.accumulate([int(input()) for _ in range(n - 1)], initial=0))
 travels = []
 for _ in range(m):
     travels.append(int(input()))
