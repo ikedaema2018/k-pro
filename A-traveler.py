@@ -21,18 +21,15 @@ def input():
 
 
 n, m = list(map(int, input().split()))
-towns = tuple(itertools.accumulate([int(input()) for _ in range(n - 1)], initial=0))
-travels = []
-for _ in range(m):
-    travels.append(int(input()))
-
+l = [0] * (n - 1)
+for i in range(n - 1):
+    l[i] = int(input())
+towns = [0] + list(itertools.accumulate(l))
 
 current = 0
 result = 0
-for a in travels:
-    nxt = a + current
-    result += abs(towns[nxt] - towns[current])
+for a in range(m):
+    nxt = int(input()) + current
+    result += abs(towns[nxt] - towns[current]) % 10**5
     current = nxt
-print(result % 100000)
-
-
+print(result % 10**5)
