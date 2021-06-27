@@ -18,23 +18,32 @@ def input():
 M, N = list(map(int, input().split()))
 K = int(input())
 regions = []
-for _ in range(M):
-    regions.append(list(input()))
+J = [[0] * (N + 1) for _ in range(M + 1)]
+O = [[0] * (N + 1) for _ in range(M + 1)]
+I = [[0] * (N + 1) for _ in range(M + 1)]
 
-rects = []
+for i in range(M):
+    places = list(input())
+    for j in range(N):
+        if places[j] == 'J':
+            J[i + 1][j + 1] = 1
+        elif places[j] == 'O':
+            O[i + 1][j + 1] = 1
+        else:
+            I[i + 1][j + 1] = 1
+
+for i in range(M):
+    for j in range(N):
+        J[i + 1][j + 1] = J[i + 1][j + 1] + J[i + 1][j] + J[i][j + 1] - J[i][j]
+        O[i + 1][j + 1] = O[i + 1][j + 1] + O[i + 1][j] + O[i][j + 1] - O[i][j]
+        I[i + 1][j + 1] = I[i + 1][j + 1] + I[i + 1][j] + I[i][j + 1] - I[i][j]
+
+
 for _ in range(K):
-    rects.append(list(map(int, input().split(' '))))
-
-for rect in rects:
-    J = O = I = 0
-    a, b, c, d = rect
-    for i in range(min(a - 1, c - 1), max(a, c)):
-        for j in range(min(b - 1, d - 1), max(b, d)):
-            if regions[i][j] == 'J':
-                J += 1
-            elif regions[i][j] == 'O':
-                O += 1
-            elif regions[i][j] == 'I':
-                I += 1
-    print(f'{J} {O} {I}')
-
+    a, b, c, d = list(map(int, input().split(' ')))
+    a -= 1
+    b -= 1
+    j = J[c][d] - J[c][b] - J[a][d] + J[a][b]
+    o = O[c][d] - O[c][b] - O[a][d] + O[a][b]
+    i = I[c][d] - I[c][b] - I[a][d] + I[a][b]
+    print(f'{j} {o} {i}')
