@@ -11,12 +11,11 @@ def input():
 N = int(input())
 K = int(input())
 
-def recursion(num, count):
-    if count == N:
-        return num
-    return min(recursion(num * 2, count + 1), recursion(num + K, count + 1))
+result = 1
+for _ in range(N):
+    if (result * 2) > (result + K):
+        result = result + K
+    else:
+        result = result * 2
 
-
-print(recursion(1, 0))
-
-
+print(result)
