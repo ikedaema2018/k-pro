@@ -1,17 +1,6 @@
 inputs = [
-    '5 12',
-    '0 1 4',
-    '0 2 3',
-    '1 1 2',
-    '1 3 4',
-    '1 1 4',
-    '1 3 2',
-    '0 1 3',
-    '1 2 4',
-    '1 3 0',
-    '0 0 4',
-    '1 0 2',
-    '1 3 0'
+    '8',
+    '1 5 3 2 5 2 3 1'
 ]
 
 
@@ -50,16 +39,20 @@ class UnionFind:
     def size(self, x):
         return -(self.parents[x])
 
+N = int(input())
+uf = UnionFind(N)
+A = list(map(int, input().split()))
+for i in range(N // 2):
+    if A[i] == A[N - i - 1]:
+        continue
+    uf.union(i, N - i - 1)
 
-N, q = list(map(int, input().split()))
-union_find = UnionFind(N)
-
-for _ in range(q):
-    com, x, y = list(map(int, input().split()))
-    if com == 0:
-        union_find.union(x, y)
-    elif com == 1:
-        if union_find.same(x, y):
-            print("1")
-        else:
-            print("0")
+seen = set()
+result = 0
+for i in range(N):
+    root = uf.find(i)
+    if root in seen:
+        continue
+    seen.add(root)
+    result += (uf.size(root) - 1)
+print(result)
