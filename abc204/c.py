@@ -11,35 +11,27 @@ def input():
 
 from collections import deque
 N, M = list(map(int, input().split()))
-conditions = [[-1] * N for _ in range(N)]
+conditions = [[] for _ in range(N)]
 
 for _ in range(M):
-    b, c = list(map(lambda a: int(a) - 1, input().split()))
-    if c > b:
-        for i in range(b, c + 1):
-            conditions[b][i] = 1
-    else:
-        for i in range(c, b + 1):
-            conditions[b][i] = 1
-result = [[-1] * N for _ in range(N)]
+    b, c = list(map(lambda x : int(x) - 1, input().split()))
+    conditions[b].append(c)
 
 
-def bfs(u):
+def dfs(u):
     q = deque([u])
-    d = [-1] * N
+    d = [False] * N
+    d[u] = True
 
     while q:
         n = q.popleft()
-        d[n] = 1
-        if n != 0 and conditions[n][n - 1] == 1 and d[n - 1] == -1:
-            d[n - 1] = 1
-            q.append(n - 1)
-        elif n != N - 1 and conditions[n][n + 1] == 1 and d[n + 1] == -1:
-            d[n + 1] = 1
-            q.append(n + 1)
+        for v in conditions[n]:
+            if not d[v]:
+                d[v] = True
+                q.append(v)
     return d
 
 count = 0
 for i in range(N):
-    count += len(list(filter(lambda x: x == 1, bfs(i))))
+    count += sum(dfs(i))
 print(count)
