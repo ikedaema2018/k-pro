@@ -6,22 +6,23 @@ inputs = [
 def input():
     return inputs.pop(0)
 
-from itertools import combinations
+
 import math
 N = int(input())
 cooks = list(map(int, input().split()))
 all = sum(cooks)
-half = math.ceil(all / 2)
+half = math.floor(all / 2)
 
-result = all
-for i in range(1, N):
-    conditions = combinations(cooks, i)
-    for condition in conditions:
-        condition_all = sum(condition)
-        if half <= condition_all:
-            result = min(condition_all, result)
+dp = [[0 for j in range(half + 1)] for i in range(N + 1)]
 
-print(result)
+for i in range(N):
+    for sum_t in range(half + 1):
+        if sum_t - cooks[i] >= 0:
+            dp1 = dp[i][sum_t - cooks[i]] + cooks[i]
+        dp2 = dp[i][sum_t]
+        if sum_t - cooks[i] >= 0 and dp1 > dp[i + 1][sum_t]:
+            dp[i + 1][sum_t] = dp1
+        if dp2 > dp[i + 1][sum_t]:
+            dp[i + 1][sum_t] = dp2
 
-
-
+print(all - dp[N][half])
