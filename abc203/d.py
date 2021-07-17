@@ -38,7 +38,6 @@ while wa + 1 < ac:
         for j in range(K, N + 1):
             if L > (depth[i][j] - depth[i - K][j] - depth[i][j - K] + depth[i - K][j - K]):
                 flag = True
-
     if flag:
         ac = wj
     else:
