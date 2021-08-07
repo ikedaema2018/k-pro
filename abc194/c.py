@@ -8,12 +8,23 @@ def input():
     return inputs.pop(0)
 
 
-import itertools
 N = int(input())
-items = list(map(int, input().split()))
-count = 0
-for condition in itertools.combinations(items, 2):
-    count += ((condition[0] - condition[1]) ** 2)
+A = list(map(int, input().split()))
 
-print(count)
+d = {}
+for a in A:
+    if a in d.keys():
+        d[a] += 1
+    else:
+        d[a] = 1
 
+sum = 0
+for i in range(len(d.items())):
+    for j in range(i + 1, len(d.items())):
+        list_items = list(d.items())
+        x = list_items[i]
+        y = list_items[j]
+        v = (x[0] - y[0]) ** 2
+        sum += (v * (x[1] * y[1]))
+
+print(sum)
