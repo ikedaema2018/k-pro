@@ -57,15 +57,15 @@ candidates = [list(map(int, input().split(' '))) for _ in range(K)]
 
 ans = 0
 for bit in range(2 ** K):
-    selected = []
+    selected = [0] * N
     for j in range(K):
         if (bit >> j) & 1:
-            selected.append(candidates[j][0])
+            selected[candidates[j][0] - 1] += 1
         else:
-            selected.append(candidates[j][1])
+            selected[candidates[j][1] - 1] += 1
     count = 0
     for m in range(M):
-        if ms[m][0] in selected and ms[m][1] in selected:
+        if selected[ms[m][0] - 1] and selected[ms[m][1] - 1]:
             count += 1
     ans = max(count, ans)
 print(ans)
