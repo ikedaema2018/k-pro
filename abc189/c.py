@@ -14,7 +14,7 @@ A = list(map(int, input().split()))
 ans = 0
 for i in range(N):
     for j in range(i, N):
-        m = min([A[mi] for mi in range(i, j + 1)])
+        m = min(A[i:j + 1])
         ans = max(ans, m * (j - i + 1))
 
 print(ans)
