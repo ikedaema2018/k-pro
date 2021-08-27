@@ -16,6 +16,5 @@ for a in A[1:]:
     if a < current:
         fumidai = (current - a)
         ans += fumidai
-    else:
-        current = a
+    current = max(a, current)
 print(ans)
