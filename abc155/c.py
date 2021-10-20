@@ -1,9 +1,12 @@
 inputs = [
-    '4',
-    'ushi',
-    'tapu',
-    'nichia',
-    'kun'
+    '7',
+    'beat',
+    'vet',
+    'beet',
+    'bed',
+    'vet',
+    'bet',
+    'beet'
 ]
 
 
@@ -16,27 +19,8 @@ S = []
 
 for _ in range(N):
     S.append(input())
-S = sorted(S)
-
-result = []
-before = S[0]
-count = 1
-for i in range(1, len(S)):
-    s = S[i]
-    if before == s:
-        count += 1
-        continue
-    result.append([count, before])
-    count = 1
-    before = s
-else:
-    result.append([count, before])
-
-
-result = sorted(result, key=lambda x: x[0], reverse=True)
-before_count = result[0][0]
-for c, s in result:
-    if before_count != c:
-        break
-    before_count = c
-    print(s)
+import collections
+result = collections.Counter(S).most_common()
+result = sorted(result, key=lambda x: x[0])
+result = sorted(result, key=lambda x: x[1], reverse=True)
+print(result)
