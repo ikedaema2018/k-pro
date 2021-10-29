@@ -10,12 +10,9 @@ def input():
 
 N = int(input())
 L = list(map(int, input().split(' ')))
-h = {}
+h = [0] * N
 
 for x in enumerate(L):
-    h[str(x[1])] = str(x[0] + 1)
+    h[x[1] - 1] = str(x[0] + 1)
 
-result = []
-for i in range(N):
-    result.append(h[str(i + 1)])
-print(" ".join(result))
+print(" ".join(h))
