@@ -17,14 +17,14 @@ lrs = [list(map(int, input().split(' '))) for _ in range(Q)]
 
 ac_count = [0] * N
 
-before = ''
-for i in range(len(S)):
-    if before == 'A' and S[i] == 'C':
+for i in range(1, len(S)):
+    if "".join(S[i - 1:i + 1]) == 'AC':
         ac_count[i] = 1
     before = S[i]
 
 import itertools
 acc_ac = list(itertools.accumulate(ac_count))
+print(acc_ac)
 
 for l, r in lrs:
     print(acc_ac[r - 1] - acc_ac[l - 1])
