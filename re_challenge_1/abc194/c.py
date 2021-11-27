@@ -8,13 +8,17 @@ def input():
     return inputs.pop(0)
 
 
+from collections import Counter
+
 N = int(input())
-A = list(map(int, input().split(' ')))
+A = [*map(int, input().split(' '))]
+cnt = Counter(A)
 
-result = 0
-for i in range(1, N):
-    for j in range(0, i):
-        a = (A[i] - A[j]) ** 2
-        result += a
-
-print(result)
+ans = 0
+for x in range(-200, 201):
+    for y in range(x + 1, 201):
+        cx = cnt[x]
+        cy = cnt[y]
+        a = cx * cy * (x - y) ** 2
+        ans += a
+print(ans)
