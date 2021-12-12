@@ -17,16 +17,6 @@ for _ in range(Q):
 
 import itertools
 A = list(itertools.combinations_with_replacement(range(1, M + 1), N))
-# print(len(A))
-# print(A)
-
-# A = []
-# for i in range(1, M + 1):
-#     A.append([i] * N)
-# A = sum(A, [])
-# _A = list(itertools.combinations(A, N))
-# print(len(_A))
-# print(_A)
 
 ans = 0
 for _a in A:
